@@ -1,19 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Platform, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { PricingCard, lightColors } from '@rneui/themed'
+import { PricingCard, lightColors, createTheme, ThemeProvider } from '@rneui/themed'
+import AppNavigator from './src/components/AppNavigator';
+
+const theme = createTheme({
+  lightColors: {
+    ...Platform.select({
+      default: lightColors.platform.android,
+      ios: lightColors.platform.ios,
+    }),
+  },
+});
 
 const App = () => {
+  
   return (
     <SafeAreaProvider>
-      <Text>App</Text>
-      <PricingCard
-        color={lightColors.primary}
-        title="Free"
-        price="$0"
-        info={['1 User', 'Basic Support', 'All Core Features']}
-        button={{ title: ' GET STARTED', icon: 'flight-takeoff' }}
-      />
+      <ThemeProvider theme={theme}>
+        <AppNavigator />
+        </ThemeProvider>
     </SafeAreaProvider>
   )
 }
