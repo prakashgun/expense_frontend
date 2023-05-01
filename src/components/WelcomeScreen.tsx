@@ -1,8 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 
 
 const WelcomeScreen = () => {
+  const navigation = useNavigation<any>()
 
   return (
     <View style={styles.container}>
@@ -12,10 +14,10 @@ const WelcomeScreen = () => {
             <Text style={styles.desc}>{'Expense tracking made easy,\n at your fingertips.'}</Text>
         </View>
         <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={[styles.button, styles.login]}>
+            <TouchableOpacity style={[styles.button, styles.login]} onPress={()=>navigation.navigate('Login')}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.register]}>
+            <TouchableOpacity style={[styles.button, styles.register]} onPress={()=>navigation.navigate('Register')}>
                 <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
         </View>

@@ -6,10 +6,7 @@ import AppNavigator from './src/components/AppNavigator';
 
 const theme = createTheme({
   lightColors: {
-    ...Platform.select({
-      default: lightColors.platform.android,
-      ios: lightColors.platform.ios,
-    }),
+    primary: 'purple',
   },
 });
 
