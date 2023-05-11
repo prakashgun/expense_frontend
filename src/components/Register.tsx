@@ -1,16 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import CommonHeader from './CommonHeader'
-import { Input } from '@rneui/themed'
-import SearchableCountryPicker from './SearchableCountryPicker'
-import countries from '../lib/countries'
 import { useNavigation } from '@react-navigation/native'
+import { Input } from '@rneui/themed'
+import React, { useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import countries from '../lib/countries'
+import CommonHeader from './CommonHeader'
+import SearchableCountryPicker from './SearchableCountryPicker'
 
 type Country = {
     name: string;
     code: string;
     dialCode: string;
-  };
+};
 
 const Register = () => {
     const navigation = useNavigation<any>()
@@ -19,7 +19,7 @@ const Register = () => {
         name: 'India',
         code: 'IN',
         dialCode: '+91',
-      });
+    });
 
     return (
         <View style={styles.container}>
@@ -28,16 +28,16 @@ const Register = () => {
             <Input
                 placeholder='Mobile'
                 leftIcon={{ type: 'font-awesome', name: 'phone' }}
-            />            
+            />
             <Input
-            placeholder='First Name'
-            leftIcon={{ type: 'material-icons', name: 'person' }}
-        />
-        <Input
-            placeholder='Last Name'
-            leftIcon={{ type: 'material-icons', name: 'person' }}
-        />
-                    <TouchableOpacity style={[styles.button, styles.register]} onPress={()=>navigation.navigate('Register')}>
+                placeholder='First Name'
+                leftIcon={{ type: 'material-icons', name: 'person' }}
+            />
+            <Input
+                placeholder='Last Name'
+                leftIcon={{ type: 'material-icons', name: 'person' }}
+            />
+            <TouchableOpacity style={[styles.button, styles.register]} onPress={() => navigation.navigate('Register')}>
                 <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
         </View>
@@ -50,22 +50,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    button:{
+    button: {
         width: '88%',
-        height:50,
-        borderRadius:10,
-        alignItems:'center',
-        justifyContent:'center',
+        height: 50,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
         alignSelf: 'center'
     },
-    buttonText:{
-        color:'#fff',
-        fontWeight:'bold'
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold'
     },
-    login:{
-        backgroundColor:'#096A2E'
+    login: {
+        backgroundColor: '#096A2E'
     },
-    register:{
-        backgroundColor:'#729343'
+    register: {
+        backgroundColor: '#729343'
     }
 })
