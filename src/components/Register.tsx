@@ -47,8 +47,6 @@ const Register = () => {
         }
 
         try {
-            console.log('API url')
-            console.log(Config.API_URL)
             const response = await fetch(
                 `${Config.API_URL}/customer/register/`,
                 {
@@ -66,13 +64,18 @@ const Register = () => {
                 }
             )
             const json = await response.json();
-            console.log(json);
 
             if (json.hasOwnProperty('non_field_errors')) {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
                 Alert.alert('Registration', 'OTP Sent')
-                navigation.navigate('VerifyRegister')
+                navigation.navigate(
+                    'VerifyRegister',
+                    {
+                        countryCode: selectedCountry.dialCode,
+                        phone: phone
+                    }
+                )
             }
 
         } catch (error) {
