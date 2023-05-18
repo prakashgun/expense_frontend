@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import { Input } from '@rneui/themed'
 import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Config from 'react-native-config'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
-import Config from 'react-native-config'
 
 type Country = {
     name: string;
@@ -31,22 +31,22 @@ const Register = () => {
         setFirstNameError('')
         setLastNameError('')
 
-        if(phone.length < 5){
+        if (phone.length < 5) {
             setPhoneError('Phone number should have at least 5 characters')
             return
         }
 
-        if(!firstName){
+        if (!firstName) {
             setFirstNameError('First name cannot be empty')
             return
         }
 
-        if(!lastName){
+        if (!lastName) {
             setLastNameError('Last name cannot be empty')
             return
         }
 
-        try{
+        try {
             console.log('API url')
             console.log(Config.API_URL)
             const response = await fetch(
@@ -68,17 +68,17 @@ const Register = () => {
             const json = await response.json();
             console.log(json);
 
-            if(json.hasOwnProperty('non_field_errors')){
+            if (json.hasOwnProperty('non_field_errors')) {
                 Alert.alert('Error', json.non_field_errors[0])
-            }else{
+            } else {
                 Alert.alert('Registration', 'OTP Sent')
                 // navigation.navigate('WelcomeScreen')
             }
 
-          } catch (error) {
+        } catch (error) {
             console.error(error);
-          }
-        
+        }
+
 
     }
 
