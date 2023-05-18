@@ -72,7 +72,7 @@ const Register = () => {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
                 Alert.alert('Registration', 'OTP Sent')
-                // navigation.navigate('WelcomeScreen')
+                navigation.navigate('VerifyRegister')
             }
 
         } catch (error) {
