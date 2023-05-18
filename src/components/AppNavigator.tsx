@@ -5,6 +5,7 @@ import WelcomeScreen from './WelcomeScreen'
 import TransactionList from './TransactionList'
 import Register from './Register'
 import Menu from './Menu'
+import VerifyRegister from './VerifyRegister'
 
 const Stack = createNativeStackNavigator()
 
@@ -17,6 +18,7 @@ const AppNavigator = () => {
                 {!isLoggedIn && <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />}
                 <Stack.Screen name="TransactionList" component={TransactionList} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="VerifyRegister" component={VerifyRegister} />
                 <Stack.Screen name="Menu" component={Menu} />
             </Stack.Navigator>
         </NavigationContainer>
