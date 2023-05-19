@@ -68,7 +68,6 @@ const Register = () => {
             if (json.hasOwnProperty('non_field_errors')) {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
-                Alert.alert('Registration', 'OTP Sent')
                 navigation.navigate(
                     'VerifyRegister',
                     {
