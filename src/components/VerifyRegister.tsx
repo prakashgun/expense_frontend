@@ -1,4 +1,4 @@
-import { Button, Input } from '@rneui/base'
+import { Button, Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import Config from 'react-native-config'

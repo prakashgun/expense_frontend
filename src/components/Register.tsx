@@ -46,6 +46,8 @@ const Register = () => {
             return
         }
 
+        console.log(Config.API_URL)
+
         try {
             const response = await fetch(
                 `${Config.API_URL}/customer/register/`,
