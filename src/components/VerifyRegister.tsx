@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import Config from 'react-native-config'
 import CommonHeader from './CommonHeader'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const VerifyRegister = ({ route, navigation }: any) => {
     const [otp, setOtp] = useState<string>('')
@@ -34,13 +35,12 @@ const VerifyRegister = ({ route, navigation }: any) => {
                 }
             )
             const json = await response.json();
-            console.log(json);
 
             if (json.hasOwnProperty('non_field_errors')) {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
-                Alert.alert('Verify Registration', 'OTP Verified. Registration Complete.')
-                navigation.navigate('WelcomeScreen')
+                await AsyncStorage.setItem('login_token', json.token)
+                navigation.navigate('TransactionList')
             }
 
         } catch (error) {
