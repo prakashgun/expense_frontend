@@ -18,7 +18,7 @@ const TransactionList = () => {
 
   return (
     <View style={styles.container}>
-      <CommonHeader heading="Register" />
+      <CommonHeader heading="Transactions" />
       <Text>TransactionList</Text>
       {user && <Text>{user.first_name}</Text>}
     </View>

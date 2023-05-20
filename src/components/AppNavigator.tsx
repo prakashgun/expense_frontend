@@ -7,6 +7,7 @@ import Register from './Register'
 import Menu from './Menu'
 import VerifyRegister from './VerifyRegister'
 import Login from './Login'
+import VerifyLogin from './VerifyLogin'
 
 const Stack = createNativeStackNavigator()
 
@@ -21,6 +22,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="VerifyRegister" component={VerifyRegister} />
                 <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="VerifyLogin" component={VerifyLogin} />
                 <Stack.Screen name="Menu" component={Menu} />
             </Stack.Navigator>
         </NavigationContainer>

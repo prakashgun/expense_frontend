@@ -64,7 +64,7 @@ const Register = () => {
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Register" />
+            <CommonHeader heading="Login" />
             <SearchableCountryPicker countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
             <Input
                 placeholder='Mobile'
