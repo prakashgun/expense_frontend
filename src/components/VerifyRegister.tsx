@@ -68,7 +68,8 @@ export default VerifyRegister
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        padding: 5
     },
     button:{
         backgroundColor: '#729343',
