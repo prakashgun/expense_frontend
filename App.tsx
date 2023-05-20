@@ -1,7 +1,7 @@
-import { Platform, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { PricingCard, lightColors, createTheme, ThemeProvider } from '@rneui/themed'
+import { ThemeProvider, createTheme } from '@rneui/themed';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/components/AppNavigator';
 
 const theme = createTheme({
@@ -11,12 +11,12 @@ const theme = createTheme({
 });
 
 const App = () => {
-  
+
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme}>
         <AppNavigator />
-        </ThemeProvider>
+      </ThemeProvider>
     </SafeAreaProvider>
   )
 }

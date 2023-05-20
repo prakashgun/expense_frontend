@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import Config from 'react-native-config'
 import CommonHeader from './CommonHeader'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setLoginDetails } from '../lib/storage'
 
 const VerifyRegister = ({ route, navigation }: any) => {
     const [otp, setOtp] = useState<string>('')
@@ -39,7 +39,7 @@ const VerifyRegister = ({ route, navigation }: any) => {
             if (json.hasOwnProperty('non_field_errors')) {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
-                await AsyncStorage.setItem('login_token', json.token)
+                await setLoginDetails(json)
                 navigation.navigate('TransactionList')
             }
 
@@ -56,9 +56,10 @@ const VerifyRegister = ({ route, navigation }: any) => {
                 leftIcon={{ type: 'font-awesome', name: 'key' }}
                 onChangeText={setOtp}
                 errorMessage={otpError}
+                keyboardType='numeric'
             />
 
-            <Button title="Submit" onPress={verifyRegisterApi} />
+            <Button title="Submit" buttonStyle={styles.button} onPress={verifyRegisterApi} />
         </View>
     )
 }
@@ -68,5 +69,8 @@ export default VerifyRegister
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    button:{
+        backgroundColor: '#729343',
     }
 })
