@@ -12,39 +12,23 @@ import SearchableCountryPicker from './SearchableCountryPicker'
 const Register = () => {
     const navigation = useNavigation<any>()
     const [phone, setPhone] = useState<string>('')
-    const [firstName, setFirstName] = useState<string>('')
-    const [lastName, setLastName] = useState<string>('')
     const [phoneError, setPhoneError] = useState<string>('')
-    const [firstNameError, setFirstNameError] = useState<string>('')
-    const [lastNameError, setLastNameError] = useState<string>('')
 
     const [selectedCountry, setSelectedCountry] = useState<CountryInterface>({
         name: 'India', code: 'IN', dialCode: '+91'
     });
 
-    const registerApi = async () => {
+    const loginApi = async () => {
         setPhoneError('')
-        setFirstNameError('')
-        setLastNameError('')
 
         if (phone.length < 5) {
             setPhoneError('Phone number should have at least 5 characters')
             return
         }
 
-        if (!firstName) {
-            setFirstNameError('First name cannot be empty')
-            return
-        }
-
-        if (!lastName) {
-            setLastNameError('Last name cannot be empty')
-            return
-        }
-
         try {
             const response = await fetch(
-                `${Config.API_URL}/customer/register/`,
+                `${Config.API_URL}/customer/login/`,
                 {
                     method: 'POST',
                     headers: {
@@ -53,9 +37,7 @@ const Register = () => {
                     },
                     body: JSON.stringify({
                         "country_code": selectedCountry.dialCode,
-                        "phone": phone,
-                        "first_name": firstName,
-                        "last_name": lastName
+                        "phone": phone
                     })
                 }
             )
@@ -65,7 +47,7 @@ const Register = () => {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
                 navigation.navigate(
-                    'VerifyRegister',
+                    'VerifyLogin',
                     {
                         countryCode: selectedCountry.dialCode,
                         phone: phone
@@ -90,20 +72,8 @@ const Register = () => {
                 onChangeText={setPhone}
                 errorMessage={phoneError}
             />
-            <Input
-                placeholder='First Name'
-                leftIcon={{ type: 'material-icons', name: 'person' }}
-                onChangeText={setFirstName}
-                errorMessage={firstNameError}
-            />
-            <Input
-                placeholder='Last Name'
-                leftIcon={{ type: 'material-icons', name: 'person' }}
-                onChangeText={setLastName}
-                errorMessage={lastNameError}
-            />
-            <TouchableOpacity style={[styles.button, styles.register]} onPress={() => registerApi()}>
-                <Text style={styles.buttonText}>Register</Text>
+            <TouchableOpacity style={[styles.button, styles.register]} onPress={() => loginApi()}>
+                <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
         </View>
     )
