@@ -1,15 +1,31 @@
 
 import { useNavigation } from '@react-navigation/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Header, Icon, ListItem } from '@rneui/base'
 import CommonHeader from './CommonHeader'
+import { getLoginDetails } from '../lib/storage'
 
 
 const Menu = () => {
     const navigation = useNavigation<any>()
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
 
+    const initialSetup = async () => {
+        const loginDetails = await getLoginDetails()
+
+        if ('login_token' in loginDetails) {
+            if (loginDetails['login_token'] != null) {
+                setIsLoggedIn(true)
+            } else {
+                setIsLoggedIn(false)
+            }
+        }
+    }
+
+    useEffect(() => {
+        initialSetup()
+    }, [])
 
     return (
         <View>

@@ -1,12 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
-import { Input, LinearProgress } from '@rneui/themed'
-import React, { useState } from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { LinearProgress } from '@rneui/themed'
+import React, { useEffect } from 'react'
+import { Alert, StyleSheet, View } from 'react-native'
 import Config from 'react-native-config'
-import CountryInterface from '../interfaces/CountryInterface'
-import countries from '../lib/countries'
+import { getLoginDetails, setLoggedOut } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import SearchableCountryPicker from './SearchableCountryPicker'
 
 
 const Logout = () => {
@@ -15,28 +13,40 @@ const Logout = () => {
     const logoutApi = async () => {
 
         try {
-            const response = await fetch(
-                `${Config.API_URL}/customer/logout/`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+            const loginDetails = await getLoginDetails()
+
+            if ('login_token' in loginDetails) {
+                if (loginDetails['login_token'] != null) {
+
+                    const response = await fetch(
+                        `${Config.API_URL}/customer/logout/`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'Authorization': `Token ${loginDetails['login_token']}`
+                            }
+                        }
+                    )
+                    const json = await response.json();
+
+                    if (json.hasOwnProperty('non_field_errors')) {
+                        Alert.alert('Error', json.non_field_errors[0])
                     }
                 }
-            )
-            const json = await response.json();
-
-            if (json.hasOwnProperty('non_field_errors')) {
-                Alert.alert('Error', json.non_field_errors[0])
-            } else {
-                // navigation.navigate('WelcomeScreen')
             }
 
+            setLoggedOut()
+            navigation.navigate('WelcomeScreen')
         } catch (error) {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        logoutApi()
+    }, [])
 
     return (
         <View style={styles.container}>

@@ -5,6 +5,11 @@ export const setLoginDetails = async (json) => {
     await AsyncStorage.setItem('user', JSON.stringify(json.user))
 }
 
+export const setLoggedOut = async () => {
+    await AsyncStorage.removeItem('login_token')
+    await AsyncStorage.removeItem('user')
+}
+
 export const getLoginDetails = async () => {
     const user = await AsyncStorage.getItem('user')
 
