@@ -1,21 +1,21 @@
 import { useNavigation } from '@react-navigation/native'
 import { Header } from '@rneui/themed'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 
 const CommonHeader = ({ heading }: any) => {
 
-  const navigation:any = useNavigation()
+  const navigation: any = useNavigation()
 
   return (
-      <TouchableOpacity onPress={() => navigation.navigate('Menu')} testID="menu">
-        <Header
-          leftComponent={{ 'icon': 'menu' }}
-          centerComponent={{ text: heading }}
-          backgroundColor="#729343"
-        />
-      </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Menu')} testID="menu">
+      <Header
+        leftComponent={{ 'icon': 'menu' }}
+        centerComponent={{ text: heading }}
+        backgroundColor="#729343"
+      />
+    </TouchableOpacity>
   )
 }
 

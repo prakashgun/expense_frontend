@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 
 type Country = {
@@ -14,8 +14,8 @@ type Props = {
   setSelectedCountry: any
 };
 
-const SearchableCountryPicker: React.FC<Props> = ({ countries, selectedCountry, setSelectedCountry}) => {
-  
+const SearchableCountryPicker: React.FC<Props> = ({ countries, selectedCountry, setSelectedCountry }) => {
+
 
   const placeholderText = selectedCountry ? `${selectedCountry.dialCode} (${selectedCountry.name})` : 'Select a country';
 
@@ -26,7 +26,7 @@ const SearchableCountryPicker: React.FC<Props> = ({ countries, selectedCountry, 
   return (
     <View>
       <SearchableDropdown
-        onTextChange={(text) => {}}
+        onTextChange={(text) => { }}
         onItemSelect={handleSelectCountry}
         containerStyle={{ padding: 5 }}
         textInputStyle={{

@@ -2,8 +2,8 @@ import { Button, Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import Config from 'react-native-config'
-import CommonHeader from './CommonHeader'
 import { setLoginDetails } from '../lib/storage'
+import CommonHeader from './CommonHeader'
 
 const VerifyRegister = ({ route, navigation }: any) => {
     const [otp, setOtp] = useState<string>('')
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    button:{
+    button: {
         backgroundColor: '#729343'
     }
 })

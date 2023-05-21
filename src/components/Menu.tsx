@@ -1,10 +1,10 @@
 
 import { useNavigation } from '@react-navigation/core'
+import { Icon, ListItem } from '@rneui/base'
 import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { Header, Icon, ListItem } from '@rneui/base'
-import CommonHeader from './CommonHeader'
 import { getLoginDetails } from '../lib/storage'
+import CommonHeader from './CommonHeader'
 
 
 const Menu = () => {

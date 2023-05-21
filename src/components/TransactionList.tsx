@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import CommonHeader from './CommonHeader'
 import UserInterface from '../interfaces/UserInterface'
 import { getLoginDetails } from '../lib/storage'
+import CommonHeader from './CommonHeader'
 
 const TransactionList = () => {
   const [user, setUser] = useState<UserInterface>()
