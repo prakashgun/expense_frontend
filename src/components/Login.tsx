@@ -9,7 +9,7 @@ import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
 
 
-const Register = () => {
+const Login = () => {
     const navigation = useNavigation<any>()
     const [phone, setPhone] = useState<string>('')
     const [phoneError, setPhoneError] = useState<string>('')
@@ -25,6 +25,8 @@ const Register = () => {
             setPhoneError('Phone number should have at least 5 characters')
             return
         }
+
+        console.log(Config.API_URL)
 
         try {
             const response = await fetch(
@@ -58,8 +60,6 @@ const Register = () => {
         } catch (error) {
             console.error(error);
         }
-
-
     }
 
     return (
@@ -79,7 +79,7 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login
 
 const styles = StyleSheet.create({
     container: {

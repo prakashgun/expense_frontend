@@ -47,6 +47,16 @@ const Menu = () => {
                             </ListItem.Content>
                         </ListItem>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Logout')}
+                    >
+                        <ListItem key="Logout" bottomDivider>
+                            <Icon name="logout" type="material-icons" />
+                            <ListItem.Content>
+                                <ListItem.Title>Logout</ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    </TouchableOpacity>
                     {/* <TouchableOpacity
                 onPress={() => navigation.navigate('ImportTransactions')}
             >
