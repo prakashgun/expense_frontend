@@ -61,23 +61,5 @@ export default Logout
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    },
-    button: {
-        width: '88%',
-        height: 50,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: 'bold'
-    },
-    login: {
-        backgroundColor: '#096A2E'
-    },
-    register: {
-        backgroundColor: '#729343'
     }
 })
