@@ -9,6 +9,7 @@ import CommonHeader from './CommonHeader'
 const AddAccount = ({ navigation }: any) => {
     const [name, setName] = useState<string>('')
     const [balance, setBalance] = useState<any>()
+    const [note, setNote] = useState<string>()
     const [nameError, setNameError] = useState<string>('')
     const [balanceError, setBalanceError] = useState<string>('')
 
@@ -82,6 +83,12 @@ const AddAccount = ({ navigation }: any) => {
                 keyboardType="numeric"
                 onChangeText={setBalance}
                 errorMessage={balanceError}
+            />
+            <Input
+                placeholder="Note (Optional)"
+                accessibilityLabel="Note"
+                leftIcon={{ type: 'font-awesome', name: 'sticky-note' }}
+                onChangeText={setNote}
             />
             <TouchableOpacity style={styles.button} onPress={onAddItemPress}>
                 <Text style={styles.buttonText}>Save</Text>

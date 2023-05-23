@@ -107,6 +107,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                     <PricingCard
                         color="#729343"
                         title={account.name}
+                        info={[`${account.note}`]}
                         price={thousands_separators(roundCurrency(getCurrentBalance(account)))}
                         button={{ title: 'Delete Account', onPress: () => onDeleteItemPress() }}
                     />
