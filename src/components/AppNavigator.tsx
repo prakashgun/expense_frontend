@@ -11,6 +11,7 @@ import VerifyRegister from './VerifyRegister'
 import WelcomeScreen from './WelcomeScreen'
 import AddAccount from './AddAccount'
 import AccountList from './AccountList'
+import AccountScreen from './AcountScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -29,6 +30,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="Logout" component={Logout} />
                 <Stack.Screen name="AddAccount" component={AddAccount} />
                 <Stack.Screen name="AccountList" component={AccountList} />
+                <Stack.Screen name="AccountScreen" component={AccountScreen} />
                 <Stack.Screen name="Menu" component={Menu} />
             </Stack.Navigator>
         </NavigationContainer>

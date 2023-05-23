@@ -34,11 +34,8 @@ const AccountList = ({ navigation }: any) => {
                             }
                         }
                     )
+                    
                     const json = await response.json();
-
-                    console.log('Accounts:')
-                    console.log(json)
-
                     setAccounts(json)
 
                     if (json.hasOwnProperty('non_field_errors')) {
