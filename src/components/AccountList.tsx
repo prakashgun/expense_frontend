@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: '#729343',
+        margin: 10
     },
     buttonText: {
         color: '#fff',
