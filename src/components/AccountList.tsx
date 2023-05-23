@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Config from 'react-native-config'
@@ -5,7 +6,6 @@ import AccountInterface from '../interfaces/AccountInterface'
 import { getLoginDetails } from '../lib/storage'
 import AccountItem from './AccountItem'
 import CommonHeader from './CommonHeader'
-import { useIsFocused } from '@react-navigation/native'
 
 
 const AccountList = ({ navigation }: any) => {
@@ -34,7 +34,7 @@ const AccountList = ({ navigation }: any) => {
                             }
                         }
                     )
-                    
+
                     const json = await response.json();
                     setAccounts(json)
 

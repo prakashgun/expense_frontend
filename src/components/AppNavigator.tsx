@@ -1,6 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useState } from 'react'
+import AccountList from './AccountList'
+import AccountScreen from './AcountScreen'
+import AddAccount from './AddAccount'
 import Login from './Login'
 import Logout from './Logout'
 import Menu from './Menu'
@@ -9,9 +12,6 @@ import TransactionList from './TransactionList'
 import VerifyLogin from './VerifyLogin'
 import VerifyRegister from './VerifyRegister'
 import WelcomeScreen from './WelcomeScreen'
-import AddAccount from './AddAccount'
-import AccountList from './AccountList'
-import AccountScreen from './AcountScreen'
 
 const Stack = createNativeStackNavigator()
 

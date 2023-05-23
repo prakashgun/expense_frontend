@@ -1,12 +1,12 @@
 import { useIsFocused } from '@react-navigation/native'
-import { ListItem, PricingCard } from '@rneui/themed'
+import { PricingCard } from '@rneui/themed'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, View } from 'react-native'
 import Config from 'react-native-config'
 import AccountInterface from '../interfaces/AccountInterface'
+import { getCurrentBalance, roundCurrency, thousands_separators } from '../lib/currency'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import { getCurrentBalance, roundCurrency, thousands_separators } from '../lib/currency'
 
 
 const AccountScreen = ({ navigation, route }: any) => {
@@ -96,7 +96,7 @@ const AccountScreen = ({ navigation, route }: any) => {
         }
 
         navigation.navigate('AccountList')
-    }   
+    }
 
     return (
         <View style={styles.container}>
@@ -105,11 +105,11 @@ const AccountScreen = ({ navigation, route }: any) => {
                 {
                     account &&
                     <PricingCard
-                    color="#729343"
-                    title={account.name}
-                    price={thousands_separators(roundCurrency(getCurrentBalance(account)))}
-                    button={{ title: 'Delete Account', onPress: () => onDeleteItemPress() }}
-                />
+                        color="#729343"
+                        title={account.name}
+                        price={thousands_separators(roundCurrency(getCurrentBalance(account)))}
+                        button={{ title: 'Delete Account', onPress: () => onDeleteItemPress() }}
+                    />
                 }
 
             </ScrollView>
