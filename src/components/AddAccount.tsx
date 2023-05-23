@@ -67,7 +67,7 @@ const AddAccount = ({ navigation }: any) => {
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Logout" />
+            <CommonHeader heading="Add Account" />
             <Input
                 placeholder="Name"
                 accessibilityLabel="Name"
