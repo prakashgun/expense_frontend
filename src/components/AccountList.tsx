@@ -5,6 +5,7 @@ import AccountInterface from '../interfaces/AccountInterface'
 import { getLoginDetails } from '../lib/storage'
 import AccountItem from './AccountItem'
 import CommonHeader from './CommonHeader'
+import { useIsFocused } from '@react-navigation/native'
 
 
 const AccountList = ({ navigation }: any) => {
@@ -12,7 +13,7 @@ const AccountList = ({ navigation }: any) => {
 
     useEffect(() => {
         getAccountsApi()
-    }, [])
+    }, [useIsFocused()])
 
     const getAccountsApi = async () => {
 
