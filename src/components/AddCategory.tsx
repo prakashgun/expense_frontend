@@ -1,10 +1,10 @@
 import { Icon, Input, ListItem, Overlay } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Config from 'react-native-config'
+import config from '../../config'
+import categoryIcons from '../lib/categoryIcons'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import categoryIcons from '../lib/categoryIcons'
 
 
 
@@ -43,7 +43,7 @@ const AddCategory = ({ navigation }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/expense/categories/`,
+                        `${config.API_URL}/expense/categories/`,
                         {
                             method: 'POST',
                             headers: {

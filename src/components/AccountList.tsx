@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Config from 'react-native-config'
+import config from '../../config'
 import AccountInterface from '../interfaces/AccountInterface'
 import { getLoginDetails } from '../lib/storage'
 import AccountItem from './AccountItem'
@@ -24,7 +24,7 @@ const AccountList = ({ navigation }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/expense/accounts/`,
+                        `${config.API_URL}/expense/accounts/`,
                         {
                             method: 'GET',
                             headers: {

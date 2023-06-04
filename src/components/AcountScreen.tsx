@@ -2,7 +2,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { PricingCard } from '@rneui/themed'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, View } from 'react-native'
-import Config from 'react-native-config'
+import config from '../../config'
 import AccountInterface from '../interfaces/AccountInterface'
 import { getCurrentBalance, roundCurrency, thousands_separators } from '../lib/currency'
 import { getLoginDetails } from '../lib/storage'
@@ -25,7 +25,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/expense/accounts/${route.params.id}`,
+                        `${config.API_URL}/expense/accounts/${route.params.id}`,
                         {
                             method: 'GET',
                             headers: {

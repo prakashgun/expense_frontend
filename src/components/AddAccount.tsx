@@ -1,7 +1,7 @@
 import { Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Config from 'react-native-config'
+import config from '../../config'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
 
@@ -9,7 +9,7 @@ import CommonHeader from './CommonHeader'
 const AddAccount = ({ navigation }: any) => {
     const [name, setName] = useState<string>('')
     const [balance, setBalance] = useState<any>()
-    const [note, setNote] = useState<string>()
+    const [note, setNote] = useState<string>('')
     const [nameError, setNameError] = useState<string>('')
     const [balanceError, setBalanceError] = useState<string>('')
 
@@ -27,39 +27,38 @@ const AddAccount = ({ navigation }: any) => {
             return
         }
 
-        console.log(Config.API_URL)
+        const loginDetails = await getLoginDetails()
 
-            const loginDetails = await getLoginDetails()
+        if ('login_token' in loginDetails) {
+            if (loginDetails['login_token'] != null) {
 
-            if ('login_token' in loginDetails) {
-                if (loginDetails['login_token'] != null) {
-
-                    const response = await fetch(
-                        `${Config.API_URL}/expense/accounts/`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                'Authorization': `Token ${loginDetails['login_token']}`
-                            },
-                            body: JSON.stringify({
-                                "name": name,
-                                "initial_balance": balance
-                            })
-                        }
-                    )
-                    const json = await response.json();
-
-                    if (json.hasOwnProperty('non_field_errors')) {
-                        Alert.alert('Error', json.non_field_errors[0])
+                const response = await fetch(
+                    `${config.API_URL}/expense/accounts/`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Token ${loginDetails['login_token']}`
+                        },
+                        body: JSON.stringify({
+                            "name": name,
+                            "initial_balance": balance,
+                            "note": note
+                        })
                     }
-                }
-            } else {
-                Alert.alert('Error', 'Please login again')
-            }
+                )
+                const json = await response.json();
 
-            navigation.navigate('AccountList')
+                if (json.hasOwnProperty('non_field_errors')) {
+                    Alert.alert('Error', json.non_field_errors[0])
+                }
+            }
+        } else {
+            Alert.alert('Error', 'Please login again')
+        }
+
+        navigation.navigate('AccountList')
 
 
         navigation.navigate('AccountList')

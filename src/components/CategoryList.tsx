@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Config from 'react-native-config'
+import config from '../../config'
 import CategoryInterface from '../interfaces/CategoryInterface'
 import { getLoginDetails } from '../lib/storage'
 import CategoryItem from './CategoryItem'
@@ -24,7 +24,7 @@ const CategoryList = ({ navigation }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/expense/categories/`,
+                        `${config.API_URL}/expense/categories/`,
                         {
                             method: 'GET',
                             headers: {

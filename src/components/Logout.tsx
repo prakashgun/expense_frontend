@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearProgress } from '@rneui/themed'
 import React, { useEffect } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+import config from '../../config'
 import { getLoginDetails, setLoggedOut } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import config from '../../config'
 
 
 const Logout = () => {
@@ -17,9 +17,6 @@ const Logout = () => {
 
             if ('login_token' in loginDetails) {
                 if (loginDetails['login_token'] != null) {
-
-                    console.log(Config.API_URL)
-
 
                     const response = await fetch(
                         `${config.API_URL}/customer/logout/`,
