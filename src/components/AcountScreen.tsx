@@ -109,7 +109,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                         title={account.name}
                         info={[`${account.note}`]}
                         price={thousands_separators(roundCurrency(getCurrentBalance(account)))}
-                        button={{ title: 'Delete Account', onPress: () => onDeleteItemPress() }}
+                        button={{ title: 'Delete Account', onPress: () => onDeleteItemPress(), color:'#ff0000' }}
                     />
                 }
 
