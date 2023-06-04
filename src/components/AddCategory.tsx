@@ -1,41 +1,49 @@
-import { Input } from '@rneui/themed'
+import { Icon, Input, ListItem, Overlay } from '@rneui/themed'
 import React, { useState } from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Config from 'react-native-config'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import categoryIcons from '../lib/categoryIcons'
 
 
-const AddAccount = ({ navigation }: any) => {
+
+const AddCategory = ({ navigation }: any) => {
     const [name, setName] = useState<string>('')
-    const [balance, setBalance] = useState<any>()
-    const [note, setNote] = useState<string>()
     const [nameError, setNameError] = useState<string>('')
-    const [balanceError, setBalanceError] = useState<string>('')
+    const [iconSetExpanded, setIconSetExpanded] = useState<boolean>(false)
+    const [selectedIcon, setSelectedIcon] = useState(categoryIcons[0])
+
+    const onIconPress = (icon: { icon_name: string, icon_type: string }) => {
+        setSelectedIcon(icon)
+        toggleCategoriesOverlay()
+    }
+
+    const toggleCategoriesOverlay = () => {
+        setIconSetExpanded(!iconSetExpanded)
+    }
 
     const onAddItemPress = async () => {
         setNameError('')
-        setBalanceError('')
 
         if (name.length < 2) {
             setNameError('Name should have atleast two characters')
             return
         }
 
-        if (!balance) {
-            setBalanceError('Account balance cannot be empty')
+        if (!selectedIcon) {
+            Alert.alert('Icon cannot be empty')
             return
         }
 
-        console.log(Config.API_URL)
-
+        try {
             const loginDetails = await getLoginDetails()
 
             if ('login_token' in loginDetails) {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/expense/accounts/`,
+                        `${Config.API_URL}/expense/categories/`,
                         {
                             method: 'POST',
                             headers: {
@@ -45,7 +53,8 @@ const AddAccount = ({ navigation }: any) => {
                             },
                             body: JSON.stringify({
                                 "name": name,
-                                "initial_balance": balance
+                                "icon_name": selectedIcon.icon_name,
+                                "icon_type": selectedIcon.icon_type
                             })
                         }
                     )
@@ -59,36 +68,46 @@ const AddAccount = ({ navigation }: any) => {
                 Alert.alert('Error', 'Please login again')
             }
 
-            navigation.navigate('AccountList')
+            navigation.navigate('CategoryList')
+        } catch (error) {
+            console.error(error);
+        }
 
-
-        navigation.navigate('AccountList')
+        navigation.navigate('CategoryList')
     }
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Add Account" />
+            <CommonHeader heading="Add Category" />
             <Input
                 placeholder="Name"
-                accessibilityLabel="Name"
                 leftIcon={{ type: 'font-awesome', name: 'bank' }}
                 onChangeText={setName}
                 errorMessage={nameError}
             />
-            <Input
-                placeholder="Balance"
-                accessibilityLabel="Balance"
-                leftIcon={{ type: 'material-icons', name: 'account-balance-wallet' }}
-                keyboardType="numeric"
-                onChangeText={setBalance}
-                errorMessage={balanceError}
-            />
-            <Input
-                placeholder="Note (Optional)"
-                accessibilityLabel="Note"
-                leftIcon={{ type: 'font-awesome', name: 'sticky-note' }}
-                onChangeText={setNote}
-            />
+
+            <TouchableOpacity onPress={toggleCategoriesOverlay}>
+                <Input
+                    placeholder={selectedIcon.icon_name}
+                    leftIcon={{ type: selectedIcon.icon_type, name: selectedIcon.icon_name }}
+                    onChangeText={() => console.log('Icon selected')}
+                    disabled
+                />
+            </TouchableOpacity>
+
+            <Overlay fullScreen={true} isVisible={iconSetExpanded} onBackdropPress={toggleCategoriesOverlay}>
+                <ScrollView>
+                    {categoryIcons.map((icon, i) => (
+                        <ListItem key={i} onPress={() => onIconPress(icon)} bottomDivider>
+                            <Icon name={icon.icon_name} type={icon.icon_type} />
+                            <ListItem.Content>
+                                <ListItem.Title>{icon.icon_name}</ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    ))}
+                </ScrollView>
+            </Overlay>
+
             <TouchableOpacity style={styles.button} onPress={onAddItemPress}>
                 <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
@@ -96,7 +115,7 @@ const AddAccount = ({ navigation }: any) => {
     )
 }
 
-export default AddAccount
+export default AddCategory
 
 const styles = StyleSheet.create({
     container: {

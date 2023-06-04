@@ -42,16 +42,16 @@ const Menu = () => {
                             </ListItem.Content>
                         </ListItem>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity
-                onPress={() => navigation.navigate('CategoryList')}
-            >
-                <ListItem key="CategoryList" bottomDivider>
-                    <Icon name="category" type="material-icons" />
-                    <ListItem.Content>
-                        <ListItem.Title>Categories</ListItem.Title>
-                    </ListItem.Content>
-                </ListItem>
-            </TouchableOpacity> */}
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('CategoryList')}
+                    >
+                        <ListItem key="CategoryList" bottomDivider>
+                            <Icon name="category" type="material-icons" />
+                            <ListItem.Content>
+                                <ListItem.Title>Categories</ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('TransactionList')}
                     >

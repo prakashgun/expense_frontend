@@ -12,6 +12,8 @@ import TransactionList from './TransactionList'
 import VerifyLogin from './VerifyLogin'
 import VerifyRegister from './VerifyRegister'
 import WelcomeScreen from './WelcomeScreen'
+import AddCategory from './AddCategory'
+import CategoryList from './CategoryList'
 
 const Stack = createNativeStackNavigator()
 
@@ -23,14 +25,20 @@ const AppNavigator = () => {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 {!isLoggedIn && <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />}
                 <Stack.Screen name="TransactionList" component={TransactionList} />
+
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="VerifyRegister" component={VerifyRegister} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="VerifyLogin" component={VerifyLogin} />
                 <Stack.Screen name="Logout" component={Logout} />
+
                 <Stack.Screen name="AddAccount" component={AddAccount} />
                 <Stack.Screen name="AccountList" component={AccountList} />
                 <Stack.Screen name="AccountScreen" component={AccountScreen} />
+
+                <Stack.Screen name="AddCategory" component={AddCategory} />
+                <Stack.Screen name="CategoryList" component={CategoryList} />
+
                 <Stack.Screen name="Menu" component={Menu} />
             </Stack.Navigator>
         </NavigationContainer>

@@ -18,6 +18,9 @@ const Logout = () => {
             if ('login_token' in loginDetails) {
                 if (loginDetails['login_token'] != null) {
 
+                    console.log(Config.API_URL)
+
+
                     const response = await fetch(
                         `${Config.API_URL}/customer/logout/`,
                         {
