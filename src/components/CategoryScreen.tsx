@@ -3,20 +3,19 @@ import { PricingCard } from '@rneui/themed'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, View } from 'react-native'
 import config from '../../config'
-import AccountInterface from '../interfaces/AccountInterface'
-import { getCurrentBalance, roundCurrency, thousands_separators } from '../lib/currency'
+import CategoryInterface from '../interfaces/CategoryInterface'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
 
 
-const AccountScreen = ({ navigation, route }: any) => {
-    const [account, setAccount] = useState<AccountInterface>()
+const CategoryScreen = ({ navigation, route }: any) => {
+    const [category, setCategory] = useState<CategoryInterface>()
 
     useEffect(() => {
-        getAccountApi()
+        getCategoryApi()
     }, [useIsFocused()])
 
-    const getAccountApi = async () => {
+    const getCategoryApi = async () => {
 
         try {
             const loginDetails = await getLoginDetails()
@@ -25,7 +24,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${config.API_URL}/expense/accounts/${route.params.id}`,
+                        `${config.API_URL}/expense/categories/${route.params.id}`,
                         {
                             method: 'GET',
                             headers: {
@@ -36,7 +35,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                         }
                     )
                     const json = await response.json();
-                    setAccount(json)
+                    setCategory(json)
 
                     if (json.hasOwnProperty('non_field_errors')) {
                         Alert.alert('Error', json.non_field_errors[0])
@@ -53,7 +52,7 @@ const AccountScreen = ({ navigation, route }: any) => {
     const onDeleteItemPress = () => {
         Alert.alert(
             'Delete',
-            'Delete this account and all associated records ?',
+            'Delete this category and all associated records ?',
             [
                 {
                     text: 'Cancel',
@@ -62,13 +61,13 @@ const AccountScreen = ({ navigation, route }: any) => {
                 },
                 {
                     text: 'OK',
-                    onPress: () => deleteAccountApi()
+                    onPress: () => deleteCategoryApi()
                 }
             ]
         )
     }
 
-    const deleteAccountApi = async () => {
+    const deleteCategoryApi = async () => {
 
         try {
             const loginDetails = await getLoginDetails()
@@ -77,7 +76,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${config.API_URL}/expense/accounts/${route.params.id}`,
+                        `${config.API_URL}/expense/categories/${route.params.id}`,
                         {
                             method: 'DELETE',
                             headers: {
@@ -95,21 +94,19 @@ const AccountScreen = ({ navigation, route }: any) => {
             console.error(error);
         }
 
-        navigation.navigate('AccountList')
+        navigation.navigate('CategoryList')
     }
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Account Detail" />
+            <CommonHeader heading="Category Detail" />
             <ScrollView >
                 {
-                    account &&
+                    category &&
                     <PricingCard
                         color="#729343"
-                        title={account.name}
-                        info={[`${account.note}`]}
-                        price={thousands_separators(roundCurrency(getCurrentBalance(account)))}
-                        button={{ title: 'Delete Account', onPress: () => onDeleteItemPress(), color:'#ff0000' }}
+                        title={category.name}
+                        button={{ title: 'Delete Category', onPress: () => onDeleteItemPress(), color: '#ff0000' }}
                     />
                 }
 
@@ -118,7 +115,7 @@ const AccountScreen = ({ navigation, route }: any) => {
     )
 }
 
-export default AccountScreen
+export default CategoryScreen
 
 const styles = StyleSheet.create({
     container: {

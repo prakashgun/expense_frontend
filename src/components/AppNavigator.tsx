@@ -14,6 +14,7 @@ import VerifyRegister from './VerifyRegister'
 import WelcomeScreen from './WelcomeScreen'
 import AddCategory from './AddCategory'
 import CategoryList from './CategoryList'
+import CategoryScreen from './CategoryScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -38,6 +39,7 @@ const AppNavigator = () => {
 
                 <Stack.Screen name="AddCategory" component={AddCategory} />
                 <Stack.Screen name="CategoryList" component={CategoryList} />
+                <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
 
                 <Stack.Screen name="Menu" component={Menu} />
             </Stack.Navigator>
