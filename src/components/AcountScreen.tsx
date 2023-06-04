@@ -77,7 +77,7 @@ const AccountScreen = ({ navigation, route }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/expense/accounts/${route.params.id}`,
+                        `${config.API_URL}/expense/accounts/${route.params.id}`,
                         {
                             method: 'DELETE',
                             headers: {
