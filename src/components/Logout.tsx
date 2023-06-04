@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { getLoginDetails, setLoggedOut } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import config from '../../config'
 
 
 const Logout = () => {
@@ -18,7 +19,7 @@ const Logout = () => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${Config.API_URL}/customer/logout/`,
+                        `${config.API_URL}/customer/logout/`,
                         {
                             method: 'POST',
                             headers: {

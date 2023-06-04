@@ -6,6 +6,7 @@ import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
+import config from '../../config'
 
 
 const Register = () => {
@@ -43,7 +44,7 @@ const Register = () => {
 
         try {
             const response = await fetch(
-                `${Config.API_URL}/customer/register/`,
+                `${config.API_URL}/customer/register/`,
                 {
                     method: 'POST',
                     headers: {

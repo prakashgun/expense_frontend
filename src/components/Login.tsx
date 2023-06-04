@@ -6,7 +6,7 @@ import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
-
+import config from '../../config'
 
 const Login = () => {
     const navigation = useNavigation<any>()
@@ -27,7 +27,7 @@ const Login = () => {
 
         try {
             const response = await fetch(
-                `${Config.API_URL}/customer/login/`,
+                `${config.API_URL}/customer/login/`,
                 {
                     method: 'POST',
                     headers: {
