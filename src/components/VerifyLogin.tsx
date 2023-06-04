@@ -1,9 +1,9 @@
 import { Button, Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
-import Config from 'react-native-config'
 import { setLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import config from '../../config'
 
 const VerifyLogin = ({ route, navigation }: any) => {
     const [otp, setOtp] = useState<string>('')
@@ -20,7 +20,7 @@ const VerifyLogin = ({ route, navigation }: any) => {
 
         try {
             const response = await fetch(
-                `${Config.API_URL}/customer/verify-login/`,
+                `${config.API_URL}/customer/verify-login/`,
                 {
                     method: 'POST',
                     headers: {

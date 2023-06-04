@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native'
 import { Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Config from 'react-native-config'
 import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
+import config from '../../config'
 
 
 const Register = () => {
@@ -44,7 +44,7 @@ const Register = () => {
 
         try {
             const response = await fetch(
-                `${Config.API_URL}/customer/register/`,
+                `${config.API_URL}/customer/register/`,
                 {
                     method: 'POST',
                     headers: {

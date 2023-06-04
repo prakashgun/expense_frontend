@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearProgress } from '@rneui/themed'
 import React, { useEffect } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
-import Config from 'react-native-config'
 import { getLoginDetails, setLoggedOut } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import config from '../../config'
 
 
 const Logout = () => {
@@ -22,7 +22,7 @@ const Logout = () => {
 
 
                     const response = await fetch(
-                        `${Config.API_URL}/customer/logout/`,
+                        `${config.API_URL}/customer/logout/`,
                         {
                             method: 'POST',
                             headers: {
