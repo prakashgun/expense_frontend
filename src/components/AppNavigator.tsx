@@ -15,6 +15,7 @@ import WelcomeScreen from './WelcomeScreen'
 import AddCategory from './AddCategory'
 import CategoryList from './CategoryList'
 import CategoryScreen from './CategoryScreen'
+import AddTransaction from './AddTransaction'
 
 const Stack = createNativeStackNavigator()
 
@@ -26,7 +27,8 @@ const AppNavigator = () => {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 {!isLoggedIn && <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />}
                 <Stack.Screen name="TransactionList" component={TransactionList} />
-
+                <Stack.Screen name="AddTransaction" component={AddTransaction} />
+                
                 <Stack.Screen name="Register" component={Register} />
                 <Stack.Screen name="VerifyRegister" component={VerifyRegister} />
                 <Stack.Screen name="Login" component={Login} />

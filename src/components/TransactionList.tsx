@@ -10,6 +10,8 @@ import TransactionItem from './TransactionItem'
 
 const TransactionList = ({ navigation }: any) => {
     const [transactions, setTransactions] = useState<TransactionInterface[]>()
+    const [transactionDate, setTransactionDate] = useState<Date>(new Date())
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         getTransactionsApi()
@@ -67,7 +69,7 @@ const TransactionList = ({ navigation }: any) => {
                 }
 
             </ScrollView>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddTransaction')}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddTransaction', { transactionDate: transactionDate.toISOString() })}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
         </View>
