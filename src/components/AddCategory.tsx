@@ -81,7 +81,7 @@ const AddCategory = ({ navigation }: any) => {
             <CommonHeader heading="Add Category" />
             <Input
                 placeholder="Name"
-                leftIcon={{ type: 'font-awesome', name: 'bank' }}
+                leftIcon={{ type: 'material-icons', name: 'category' }}
                 onChangeText={setName}
                 errorMessage={nameError}
             />
