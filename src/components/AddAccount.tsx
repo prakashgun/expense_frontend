@@ -59,9 +59,6 @@ const AddAccount = ({ navigation }: any) => {
         }
 
         navigation.navigate('AccountList')
-
-
-        navigation.navigate('AccountList')
     }
 
     return (

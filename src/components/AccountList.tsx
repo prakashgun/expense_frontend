@@ -1,38 +1,45 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import config from '../../config'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import AccountInterface from '../interfaces/AccountInterface'
-import { getLoginDetails } from '../lib/storage'
+import { getAccountsApi } from '../lib/account'
 import AccountItem from './AccountItem'
 import CommonHeader from './CommonHeader'
-import { getAccountsApi } from '../lib/account'
 
 
 const AccountList = ({ navigation }: any) => {
     const [accounts, setAccounts] = useState<AccountInterface[]>()
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+
+    const loadData = async () => {
+        const allAccounts = await getAccountsApi()
+        setAccounts(allAccounts)
+    }
 
     useEffect(() => {
-        getAccountsApi(setAccounts)
+        setIsLoading(true)
+        loadData()
+        setIsLoading(false)
     }, [useIsFocused()])
 
     return (
         <View style={styles.container}>
             <CommonHeader heading="Accounts" />
-            <ScrollView >
-                {
-                    accounts && accounts.map((account) => (
-                        <AccountItem
-                            account={account}
-                            key={account.id}
-                            onPress={() => {
-                                return navigation.navigate('AccountScreen', { id: account.id })
-                            }}
-                        />
-                    ))
-                }
+            {isLoading ? <ActivityIndicator size="large" color="#3e3b33" /> :
+                <ScrollView >
+                    {
+                        accounts && accounts.map((account) => (
+                            <AccountItem
+                                account={account}
+                                key={account.id}
+                                onPress={() => {
+                                    return navigation.navigate('AccountScreen', { id: account.id })
+                                }}
+                            />
+                        ))
+                    }
 
-            </ScrollView>
+                </ScrollView>}
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddAccount')}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>

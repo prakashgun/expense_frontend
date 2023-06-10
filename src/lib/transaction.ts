@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import config from "../../config";
 import { getLoginDetails } from "./storage";
 
-export const getAccountsApi = async () => {
+export const getTransactionsApi = async () => {
 
     try {
         const loginDetails = await getLoginDetails()
@@ -11,7 +11,7 @@ export const getAccountsApi = async () => {
             if (loginDetails['login_token'] != null) {
 
                 const response = await fetch(
-                    `${config.API_URL}/expense/accounts/`,
+                    `${config.API_URL}/expense/transactions/`,
                     {
                         method: 'GET',
                         headers: {

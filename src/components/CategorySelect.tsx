@@ -1,4 +1,4 @@
-import { Button, FAB, Icon, ListItem, Overlay, Text } from '@rneui/base'
+import { Button, FAB, Icon, ListItem, Overlay, Text } from '@rneui/themed'
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import CategoryInterface from '../interfaces/CategoryInterface'

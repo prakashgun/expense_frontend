@@ -1,38 +1,45 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import config from '../../config'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CategoryInterface from '../interfaces/CategoryInterface'
-import { getLoginDetails } from '../lib/storage'
+import { getCategoriesApi } from '../lib/category'
 import CategoryItem from './CategoryItem'
 import CommonHeader from './CommonHeader'
-import { getCategoriesApi } from '../lib/category'
 
 
 const CategoryList = ({ navigation }: any) => {
     const [categories, setCategories] = useState<CategoryInterface[]>()
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+
+    const loadData = async () => {
+        const allCategories = await getCategoriesApi()
+        setCategories(allCategories)
+    }
 
     useEffect(() => {
-        getCategoriesApi(setCategories)
+        setIsLoading(true)
+        loadData()
+        setIsLoading(false)
     }, [useIsFocused()])
 
     return (
         <View style={styles.container}>
             <CommonHeader heading="Categories" />
-            <ScrollView >
-                {
-                    categories && categories.map((category) => (
-                        <CategoryItem
-                            category={category}
-                            key={category.id}
-                            onPress={() => {
-                                return navigation.navigate('CategoryScreen', { id: category.id })
-                            }}
-                        />
-                    ))
-                }
+            {isLoading ? <ActivityIndicator size="large" color="#3e3b33" /> :
+                <ScrollView >
+                    {
+                        categories && categories.map((category) => (
+                            <CategoryItem
+                                category={category}
+                                key={category.id}
+                                onPress={() => {
+                                    return navigation.navigate('CategoryScreen', { id: category.id })
+                                }}
+                            />
+                        ))
+                    }
 
-            </ScrollView>
+                </ScrollView>}
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddCategory')}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>

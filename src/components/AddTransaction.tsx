@@ -1,18 +1,18 @@
 import { useIsFocused } from '@react-navigation/native'
-import { Button, Input } from '@rneui/base'
+import { Input } from '@rneui/themed'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import config from '../../config'
 import AccountInterface from '../interfaces/AccountInterface'
 import CategoryInterface from '../interfaces/CategoryInterface'
 import TransactionTypeInterface, { transactionTypes } from '../interfaces/TransactionTypeInterface'
+import { getAccountsApi } from '../lib/account'
+import { getCategoriesApi } from '../lib/category'
+import { getLoginDetails } from '../lib/storage'
 import AccountSelect from './AccountSelect'
 import CategorySelect from './CategorySelect'
 import CommonHeader from './CommonHeader'
 import TransactionTypeSelect from './TransactionTypeSelect'
-import { getLoginDetails } from '../lib/storage'
-import config from '../../config'
-import { getAccountsApi } from '../lib/account'
-import { getCategoriesApi } from '../lib/category'
 
 
 const AddTransaction = ({ navigation, route }: any) => {
@@ -26,19 +26,21 @@ const AddTransaction = ({ navigation, route }: any) => {
     const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionTypeInterface>(transactionTypes[0])
     const [selectedCategory, setSelectedCategory] = useState<CategoryInterface>()
     const [categories, setCategories] = useState<CategoryInterface[]>()
-    const [isLoading, setIsLoading] = useState(true)
-    
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+
 
     const loadFormData = async () => {
-        await getAccountsApi(setAccounts)
-        await getCategoriesApi(setCategories)
+        const allAccounts = await getAccountsApi()
+        setAccounts(allAccounts)
+        const allCategories = await getCategoriesApi()
+        setCategories(allCategories)
 
-        if(accounts){
-         setSelectedAccount(accounts[0])
+        if (allAccounts && !selectedAccount) {
+            setSelectedAccount(allAccounts[0])
         }
 
-        if(categories){
-            setSelectedCategory(categories[0])
+        if (allCategories && !selectedCategory) {
+            setSelectedCategory(allCategories[0])
         }
     }
 
@@ -73,7 +75,7 @@ const AddTransaction = ({ navigation, route }: any) => {
                 if (loginDetails['login_token'] != null) {
 
                     const response = await fetch(
-                        `${config.API_URL}/expense/categories/`,
+                        `${config.API_URL}/expense/transactions/`,
                         {
                             method: 'POST',
                             headers: {
@@ -93,6 +95,7 @@ const AddTransaction = ({ navigation, route }: any) => {
                     )
 
                     const json = await response.json();
+                    console.log(json)
 
                     if (json.hasOwnProperty('non_field_errors')) {
                         Alert.alert('Error', json.non_field_errors[0])
@@ -120,13 +123,13 @@ const AddTransaction = ({ navigation, route }: any) => {
                             transactionTypes={transactionTypes}
                             selectedTransactionType={selectedTransactionType}
                             setSelectedTransactionType={setSelectedTransactionType}
-                            inputButtonStyle={styles.inputButtonStyle} 
+                            inputButtonStyle={styles.inputButtonStyle}
                         />}
                     {categories && selectedCategory && <CategorySelect
                         categories={categories}
                         selectedCategory={selectedCategory}
-                        setSelectedCategory={setSelectedCategory} 
-                        inputButtonStyle={styles.inputButtonStyle}               
+                        setSelectedCategory={setSelectedCategory}
+                        inputButtonStyle={styles.inputButtonStyle}
                     />}
                     {accounts && selectedAccount && selectedTransactionType &&
                         <AccountSelect
@@ -146,7 +149,7 @@ const AddTransaction = ({ navigation, route }: any) => {
                             isFromAccount={false}
                             inputButtonStyle={styles.inputButtonStyle}
                         />}
-                                            <Input
+                    <Input
                         placeholder="Value"
                         leftIcon={{ type: 'material-icons', name: 'account-balance-wallet' }}
                         keyboardType="numeric"
@@ -158,7 +161,9 @@ const AddTransaction = ({ navigation, route }: any) => {
                         leftIcon={{ type: 'font-awesome', name: 'sticky-note' }}
                         onChangeText={setName}
                     />
-                    <Button title="Save" onPress={onAddItemPress} />
+                    <TouchableOpacity style={styles.button} onPress={onAddItemPress}>
+                        <Text style={styles.buttonText}>Save</Text>
+                    </TouchableOpacity>
                 </View>}
         </View>
     )
@@ -174,11 +179,24 @@ const styles = StyleSheet.create({
     disabled_input: {
         opacity: 1
     },
-    inputButtonStyle:{
-        backgroundColor:"olive",
+    inputButtonStyle: {
+        backgroundColor: "olive",
         borderColor: 'transparent',
         borderWidth: 0,
         borderRadius: 5,
         padding: 5
+    },
+    button: {
+        width: '88%',
+        height: 50,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        backgroundColor: '#729343'
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold'
     }
 })

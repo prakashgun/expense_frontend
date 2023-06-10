@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import config from "../../config";
 import { getLoginDetails } from "./storage";
 
-export const   getCategoriesApi = async (setCategories: any) => {
+export const   getCategoriesApi = async () => {
 
     try {
         const loginDetails = await getLoginDetails()
@@ -23,11 +23,12 @@ export const   getCategoriesApi = async (setCategories: any) => {
                 )
 
                 const json = await response.json();
-                setCategories(json)
-
+                
                 if (json.hasOwnProperty('non_field_errors')) {
                     Alert.alert('Error', json.non_field_errors[0])
                 }
+
+                return json
             }
         } else {
             Alert.alert('Error', 'Please login again')

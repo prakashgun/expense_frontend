@@ -1,75 +1,46 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import config from '../../config'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import TransactionInterface from '../interfaces/TransactionInterface'
-import { getLoginDetails } from '../lib/storage'
+import { getTransactionsApi } from '../lib/transaction'
 import CommonHeader from './CommonHeader'
 import TransactionItem from './TransactionItem'
 
 
 const TransactionList = ({ navigation }: any) => {
     const [transactions, setTransactions] = useState<TransactionInterface[]>()
-    const [transactionDate, setTransactionDate] = useState<Date>(new Date())
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+
+    const loadData = async () => {
+        const allTransactions = await getTransactionsApi()
+        setTransactions(allTransactions)
+    }
 
     useEffect(() => {
-        getTransactionsApi()
+        setIsLoading(true)
+        loadData()
+        setIsLoading(false)
     }, [useIsFocused()])
-
-    const getTransactionsApi = async () => {
-
-        try {
-            const loginDetails = await getLoginDetails()
-
-            if ('login_token' in loginDetails) {
-                if (loginDetails['login_token'] != null) {
-
-                    const response = await fetch(
-                        `${config.API_URL}/expense/transactions/`,
-                        {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                'Authorization': `Token ${loginDetails['login_token']}`
-                            }
-                        }
-                    )
-
-                    const json = await response.json();
-                    setTransactions(json)
-
-                    if (json.hasOwnProperty('non_field_errors')) {
-                        Alert.alert('Error', json.non_field_errors[0])
-                    }
-                }
-            } else {
-                Alert.alert('Error', 'Please login again')
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     return (
         <View style={styles.container}>
             <CommonHeader heading="Transactions" />
-            <ScrollView >
-                {
-                    transactions && transactions.map((transaction) => (
-                        <TransactionItem
-                            transaction={transaction}
-                            key={transaction.id}
-                            onPress={() => {
-                                return navigation.navigate('TransactionScreen', { id: transaction.id })
-                            }}
-                        />
-                    ))
-                }
+            {isLoading ? <ActivityIndicator size="large" color="#3e3b33" /> :
+                <ScrollView >
+                    {
+                        transactions && transactions.map((transaction) => (
+                            <TransactionItem
+                                transaction={transaction}
+                                key={transaction.id}
+                                onPress={() => {
+                                    return navigation.navigate('TransactionScreen', { id: transaction.id })
+                                }}
+                            />
+                        ))
+                    }
 
-            </ScrollView>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddTransaction', { transactionDate: transactionDate.toISOString() })}>
+                </ScrollView>}
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddTransaction')}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
         </View>
